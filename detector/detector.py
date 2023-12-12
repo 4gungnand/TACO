@@ -286,7 +286,7 @@ if __name__ == '__main__':
         # Start from ImageNet trained weights
         model_path = model.get_imagenet_weights()
     else:
-        _, model_path = model.get_last_checkpoint(args.model)
+        model_path = r"C:\Users\LENOVO\Downloads\programmer\GitHub\TACO\detector\models\logs\mask_rcnn_taco_0100.h5"
 
     # Load weights
     if args.model.lower() == "coco":
