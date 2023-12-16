@@ -2214,12 +2214,11 @@ class MaskRCNN():
 
     def load_weights(self, weights_in_path, weights_out_path, by_name=False, exclude=None):
         """Modified version of the correspoding Keras function with
-        the addition of multi-GPU support and the ability to exclude
-        some layers from loading.
+        the addition of multi-GPU support and the ability to exclude some layers from loading.
         exlude: list of layer names to excluce
         """
         import h5py
-        from keras.engine import saving
+        from tensorflow.python.keras.saving import hdf5_format
 
         if exclude:
             by_name = True
@@ -2241,9 +2240,14 @@ class MaskRCNN():
             layers = filter(lambda l: l.name not in exclude, layers)
 
         if by_name:
-            topology.load_weights_from_hdf5_group_by_name(f, layers)
+            hdf5_format.load_weights_from_hdf5_group_by_name(f, layers)
         else:
-            topology.load_weights_from_hdf5_group(f, layers)
+            hdf5_format.load_weights_from_hdf5_group(f, layers)
+        if hasattr(f, 'close'):
+            f.close()
+        # Update the log directory
+        self.set_log_dir(weights_out_path)
+
         if hasattr(f, 'close'):
             f.close()
         # Update the log directory

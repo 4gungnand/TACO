@@ -1,9 +1,5 @@
-pillow
-requests
-jupyter
-numpy
-pandas
-matplotlib
-seaborn
-graphviz
-Cython
+python==3.9.2
+tensorflow==2.12.0
+pycocotools==pycocotools
+imgaug==0.4.0
+mrcnn==0.2
